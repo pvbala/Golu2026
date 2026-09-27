@@ -1,0 +1,283 @@
+/* ---------- Colour tokens ---------- */
+:root {
+  --sky: #CDEBFF;       /* page background */
+  --ink: #1B2A4A;       /* text, outlines */
+  --sun: #FFC93C;       /* tile colour 1 */
+  --leaf: #7FD19B;      /* tile colour 2 */
+  --berry: #FF8FA3;     /* tile colour 3 */
+  --paper: #FFFFFF;     /* bubbles, buttons */
+  --muted: #4A5A78;
+  --stage: #0F1830;     /* behind the video */
+  --font: "Baloo 2", ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sky: #14203A;
+    --ink: #EAF2FF;
+    --paper: #22304F;
+    --muted: #AEBBD6;
+  }
+}
+:root[data-theme="dark"] {
+  --sky: #14203A;
+  --ink: #EAF2FF;
+  --paper: #22304F;
+  --muted: #AEBBD6;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body { margin: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--sky);
+  color: var(--ink);
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100%;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Header ---------- */
+.top {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 16px 8px;
+}
+
+.wordmark {
+  margin: 0;
+  font-size: clamp(3rem, 16vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* Summary sits in a speech bubble, as if Golu's app is talking to him */
+.summary {
+  position: relative;
+  margin: 18px 0 0;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  max-width: 60ch;
+}
+.summary::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  width: 18px;
+  height: 18px;
+  background: var(--paper);
+  border-left: 3px solid var(--ink);
+  border-top: 3px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+/* ---------- Grid of 9 ---------- */
+main {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px 16px 32px;
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 330px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Sticker tiles: thick outline, solid offset shadow, slight tilt */
+.tile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 6px 6px 8px;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  background: var(--tile, var(--sun));
+  color: #1B2A4A;
+  text-align: left;
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.grid li:nth-child(3n+1) .tile { --tile: var(--sun);   --tilt: -1.5deg; }
+.grid li:nth-child(3n+2) .tile { --tile: var(--leaf);  --tilt: 1deg; }
+.grid li:nth-child(3n+3) .tile { --tile: var(--berry); --tilt: -0.5deg; }
+
+.tile:active {
+  transform: rotate(0deg) translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(27, 42, 74, 0.15);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.thumb .play {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #1B2A4A;
+  display: grid;
+  place-items: center;
+}
+.thumb .play svg { width: 12px; height: 12px; fill: #1B2A4A; margin-left: 2px; }
+
+.tile-title {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.15;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.status {
+  margin: 24px 0 0;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  font-weight: 500;
+}
+
+/* ---------- Player ---------- */
+.player {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background: var(--stage);
+  color: #FFFFFF;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.player[hidden] { display: none; }
+
+.player-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.round-btn {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+.round-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.player-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 0 8px;
+  min-height: 0;
+  position: relative;
+}
+.stage video {
+  width: 100%;
+  max-height: 100%;
+  background: #000;
+  border-radius: 12px;
+}
+
+.video-error {
+  position: absolute;
+  margin: 0 24px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  color: #1B2A4A;
+  border-radius: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.player-nav {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+}
+.nav-btn {
+  flex: 1;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 3px solid #FFFFFF;
+  background: transparent;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+.nav-btn:last-child { background: var(--sun); color: #1B2A4A; border-color: var(--sun); }
+.nav-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Landscape phone: give the video the whole screen height */
+@media (orientation: landscape) and (max-height: 500px) {
+  .player-nav { display: none; }
+  .player-bar { padding: 6px 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile { transition: none; }
+}
