@@ -1,15 +1,15 @@
 {
-  "title": "Golu",
+  "title": "NavaVithaBakthi-Thiruvaimozhi",
   "summary": "Hi Golu! Pick a video and tap it to watch.",
   "items": [
-    { "id": 1, "title": "Video 1", "thumb": "thumbs/1.jpg", "video": "videos/1.mp4" },
-    { "id": 2, "title": "Video 2", "thumb": "thumbs/2.jpg", "video": "videos/2.mp4" },
-    { "id": 3, "title": "Video 3", "thumb": "thumbs/3.jpg", "video": "videos/3.mp4" },
-    { "id": 4, "title": "Video 4", "thumb": "thumbs/4.jpg", "video": "videos/4.mp4" },
-    { "id": 5, "title": "Video 5", "thumb": "thumbs/5.jpg", "video": "videos/5.mp4" },
-    { "id": 6, "title": "Video 6", "thumb": "thumbs/6.jpg", "video": "videos/6.mp4" },
-    { "id": 7, "title": "Video 7", "thumb": "thumbs/7.jpg", "video": "videos/7.mp4" },
-    { "id": 8, "title": "Video 8", "thumb": "thumbs/8.jpg", "video": "videos/8.mp4" },
-    { "id": 9, "title": "Video 9", "thumb": "thumbs/9.jpg", "video": "videos/9.mp4" }
+    { "id": 1, "title": "கதை 1", "thumb": "thumbs/1.jpg", "video": "videos/1.mp4" },
+    { "id": 2, "title": "கதை 2", "thumb": "thumbs/2.jpg", "video": "videos/2.mp4" },
+    { "id": 3, "title": "கதை 3", "thumb": "thumbs/3.jpg", "video": "videos/3.mp4" },
+    { "id": 4, "title": "கதை 4", "thumb": "thumbs/4.jpg", "video": "videos/4.mp4" },
+    { "id": 5, "title": "கதை 5", "thumb": "thumbs/5.jpg", "video": "videos/5.mp4" },
+    { "id": 6, "title": "கதை 6", "thumb": "thumbs/6.jpg", "video": "videos/6.mp4" },
+    { "id": 7, "title": "கதை 7", "thumb": "thumbs/7.jpg", "video": "videos/7.mp4" },
+    { "id": 8, "title": "கதை 8", "thumb": "thumbs/8.jpg", "video": "videos/8.mp4" },
+    { "id": 9, "title": "கதை 9", "thumb": "thumbs/9.jpg", "video": "videos/9.mp4" }
   ]
 }
